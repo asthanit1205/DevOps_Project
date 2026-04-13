@@ -55,7 +55,11 @@ jobs:
     - name: Build Docker Images
       run: |
         echo "✅ Building Docker images"
-        docker-compose build
+        if command -v docker-compose >/dev/null 2>&1; then
+          docker-compose build
+        else
+          docker compose build
+        fi
 
     - name: Generate Test Report
       run: echo "All tests passed on $(date)" > test-report.txt
